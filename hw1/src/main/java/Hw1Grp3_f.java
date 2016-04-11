@@ -28,8 +28,7 @@ import org.apache.hadoop.hbase.client.Put;
  * @author qihouliang
  *
  */
-public class Hw1Grp3 {
-	
+public class Hw1Grp3_f {
 
 	/**
 	 * 
@@ -58,14 +57,14 @@ public class Hw1Grp3 {
 	 * @param resultArray	the parameter for calculate
 	 * @return  the calculate result
 	 */
-	public static TreeMap<String, Integer>[] read(String url, int columnIndex,
+	public static TreeMap<String, Object>[] read(String url, int columnIndex,
 			String resultArray[]) {
 
-		TreeMap<String, Integer>[] mediumMap = new TreeMap[resultArray.length];
+		TreeMap<String, Object>[] mediumMap = new TreeMap[resultArray.length];
 		TreeMap<String, Integer> countMap = new TreeMap<String, Integer>();
 
 		for (int i = 0; i < resultArray.length; i++) {
-			mediumMap[i] = new TreeMap<String, Integer>();
+			mediumMap[i] = new TreeMap<String, Object>();
 		}
 
 		String calStr[] = new String[resultArray.length];
@@ -104,10 +103,12 @@ public class Hw1Grp3 {
 						mediumMap[i] = calCount(key, mediumMap[i]);
 					} else if (calStr[i].equals("max")) {
 						mediumMap[i] = calMax(key,
-								Integer.parseInt(strArray[calIndex[i]]),
+								Float.parseFloat(strArray[calIndex[i]]),
 								mediumMap[i]);
 					} else if (calStr[i].equals("avg")) {
-						mediumMap[i] = calAvg(key,Integer.parseInt(strArray[calIndex[i]]),mediumMap[i]);
+						mediumMap[i] = calAvg(key,
+								Float.parseFloat(strArray[calIndex[i]]),
+								mediumMap[i]);
 					}
 				}
 			}
@@ -115,16 +116,16 @@ public class Hw1Grp3 {
 			// calculate the avg value
 			for (int i = 0; i < resultArray.length; i++) {
 				if (calStr[i].equals("avg")) {
-					Iterator<Entry<String, Integer>> avgIter = mediumMap[i]
+					Iterator<Entry<String, Object>> avgIter = mediumMap[i]
 							.entrySet().iterator();
 					while (avgIter.hasNext()) {
-						Entry<String, Integer> entry = avgIter.next();
+						Entry<String, Object> entry = avgIter.next();
 						String key = entry.getKey();
 						float val = (float) entry.getValue();
 						int countValue = countMap.get(key);
 						float avg = val / countValue;
 						DecimalFormat df = new DecimalFormat("#.00");
-						mediumMap[i].put(key, Integer.parseInt(df.format(avg)));
+						mediumMap[i].put(key, Float.parseFloat(df.format(avg)));
 					}
 				}
 			}
@@ -140,12 +141,12 @@ public class Hw1Grp3 {
 	}
 
 	// actually is calculate the sum
-	private static TreeMap<String, Integer> calAvg(String key, int value,
-			TreeMap<String, Integer> mediumMap) {
+	private static TreeMap<String, Object> calAvg(String key, float value,
+			TreeMap<String, Object> mediumMap) {
 		if (mediumMap.get(key) == null) {
 			mediumMap.put(key, value);
 		} else {
-			mediumMap.put(key, value + (int) mediumMap.get(key));
+			mediumMap.put(key, value + (float) mediumMap.get(key));
 		}
 		return mediumMap;
 	}
@@ -157,9 +158,9 @@ public class Hw1Grp3 {
 	 * @param mediumMap   
 	 * @return  the max value for the key
 	 */
-	private static TreeMap<String, Integer> calMax(String key, int value,
-			TreeMap<String, Integer> mediumMap) {
-		if (mediumMap.get(key) == null || value > mediumMap.get(key)) {
+	private static TreeMap<String, Object> calMax(String key, float value,
+			TreeMap<String, Object> mediumMap) {
+		if (mediumMap.get(key) == null || value > (float) mediumMap.get(key)) {
 			mediumMap.put(key, value);
 		}
 		return mediumMap;
@@ -171,17 +172,17 @@ public class Hw1Grp3 {
 	 * @param mediumMap
 	 * @return  the count value for the key
 	 */
-	private static TreeMap<String, Integer> calCount(String key,
-			TreeMap<String, Integer> mediumMap) {
+	private static TreeMap<String, Object> calCount(String key,
+			TreeMap<String, Object> mediumMap) {
 		if (mediumMap.get(key) == null) {
 			mediumMap.put(key, 1);
 		} else {
-			mediumMap.put(key, 1 + mediumMap.get(key));
+			mediumMap.put(key, 1 + (int) mediumMap.get(key));
 		}
 		return mediumMap;
 	}
 
-	public static void write(TreeMap<String, Integer> resultMap[],
+	public static void write(TreeMap<String, Object> resultMap[],
 			String calStr[]) {
 		// create table descriptor
 		try {
@@ -239,10 +240,9 @@ public class Hw1Grp3 {
 		String result = args[2].substring(4);
 		String resultArray[] = result.split(",");
 
-		TreeMap<String, Integer> resultMap[] = read(path, columnIndex,
+		TreeMap<String, Object> resultMap[] = read(path, columnIndex,
 				resultArray);
 		write(resultMap, resultArray);
 	}
 
 }
-
