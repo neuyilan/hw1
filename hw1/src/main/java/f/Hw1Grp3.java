@@ -1,4 +1,4 @@
-package hw1.f;
+package f;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
