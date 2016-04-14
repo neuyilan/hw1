@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/util/brokers.py=utf-8
+encoding//src/util/consumer.py=utf-8
+encoding//src/util/producer.py=utf-8

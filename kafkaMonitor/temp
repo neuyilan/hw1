@@ -1,0 +1,4 @@
+Error in sitecustomize; set PYTHONVERBOSE for traceback:
+KeyError: 'sitecustomize'
+get_groud_ids------>:     ['hexiang', 'www_diptest1234accesskey_flumetest', 'yarn-etl', 'wlfzz', 'flume_kafka_kafka', 'testGroup', 'kte-1', 'kte', 'spark_streaming_kafka', 'flume_www_diptest1234accesskey_flumetest', 'spark_streaming', 'kafka_to_kafka', 'kafka_to_es', 'test', 'kte-streaming', 'es_performance_testing_sink', 'group_31_0919', 'group_2134', 'group_31_1349', 'newGroup1', 'yurun_flume_test', 'newGroup2', 'druid_test', 'yurun_test4', 'newGroup', 'druid-example', 'dely_test']
+get_consumer_ids------>:     []
